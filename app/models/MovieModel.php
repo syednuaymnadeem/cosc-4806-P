@@ -3,7 +3,9 @@
 
 class MovieModel {
     private $apiKey = "33879f52"; // OMDb API Key
-    private $geminiApiKey = "AIzaSyB_gPJk7PWvZ-Il4idlkEJw_zwsAIOO6Io"; // Your Gemini API Key
+    
+    private $geminiApiKey = "AIzaSyB_gPJk7PWvZ-Il4idlkEJw_zwsAIOO6Io"; // My Gemini API Key
+    
 
     public function fetchMovie($title, $year = '') {
         $title = urlencode($title);
