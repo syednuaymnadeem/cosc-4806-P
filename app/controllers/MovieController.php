@@ -15,6 +15,8 @@ class MovieController extends Controller {
       echo "No title provided.";
       return;
   }
+    $model = $this->model('MovieModel');
+    $movie = $model->fetchMovie($title, $year)
   
 }
 }
