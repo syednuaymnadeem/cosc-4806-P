@@ -32,6 +32,10 @@ class MovieController extends Controller {
               }
           }
           $avgRating = $ratingModel->getAverageRating($movie['imdbID']);
+
+          if (isset($_GET['review']) && $_GET['review'] == 1) {
+              $aiReview = $model->getAIReview($movie['Title'], $movie['Year']);
+          }
         }
     }
 }
