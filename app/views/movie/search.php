@@ -8,4 +8,8 @@
       Movie Title:
       <input type="text" name="title" required>
   </label><br><br>
+  <label>
+      Year (optional):
+      <input type="text" name="year">
+  </label><br><br>
 </form>
