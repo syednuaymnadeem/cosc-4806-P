@@ -8,3 +8,5 @@
         body { font-family: Arial, sans-serif; margin: 2em; background: #f0f0f0; }
         form { background: #fff; padding: 1em; border-radius: 5px; }
     </style>
+</head>
+<body>
