@@ -6,9 +6,15 @@ class MovieController extends Controller {
       $this->view('movie/search');
   }
   public function details() {
-    $title = isset($_GET['title']) ? trim($_GET['title']) : '';
-    $year = isset($_GET['year']) ? trim($_GET['year']) : '';
-      
+  $title = isset($_GET['title']) ? trim($_GET['title']) : '';
+  $year = isset($_GET['year']) ? trim($_GET['year']) : '';
+  $ratingSubmitted = false;
+  $aiReview = null;
+
+  if ($title === '') {
+      echo "No title provided.";
+      return;
   }
   
+}
 }
