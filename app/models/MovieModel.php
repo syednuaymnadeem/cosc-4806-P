@@ -33,4 +33,8 @@ class MovieModel {
 
         return (array)$data;
     }
+
+    public function getAIReview($title, $year) {
+        // To be implemented
+    }
 }
