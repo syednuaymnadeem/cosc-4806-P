@@ -37,3 +37,12 @@
     </select>
     <button type="submit">Submit Rating</button>
 </form>
+
+<h3>Get an AI Review:</h3>
+<form method="get">
+    <input type="hidden" name="action" value="details">
+    <input type="hidden" name="title" value="<?= htmlspecialchars($_GET['title']) ?>">
+    <input type="hidden" name="year" value="<?= htmlspecialchars($_GET['year']) ?>">
+    <input type="hidden" name="review" value="1">
+    <button type="submit">Generate AI Review</button>
+</form>
