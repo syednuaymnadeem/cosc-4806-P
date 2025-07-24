@@ -76,7 +76,7 @@ class MovieModel {
         $result = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Get HTTP status code
         $curl_error = curl_error($ch);                     // Get cURL error message
-        curl_close($ch); 
+        curl_close($ch);                                   // Close cURL session
 
         // 5. Handle cURL errors and HTTP response codes
         if ($result === FALSE) {
@@ -92,5 +92,34 @@ class MovieModel {
             error_log("Gemini API HTTP Error ({$http_code}) for '{$title}' ({$year}): " . $result);
             return "Error from AI (HTTP {$http_code}): {$errorMessage}";
         }
+
+        // --- Changes End Here ---
+
+        $response = json_decode($result, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            error_log("Gemini JSON Decode Error: " . json_last_error_msg() . " for response: " . $result);
+            return "Error: Failed to parse AI review response.";
+        }
+
+        if (isset($response['candidates'][0]['content']['parts'][0]['text'])) {
+            $review = $response['candidates'][0]['content']['parts'][0]['text'];
+            return $review;
+        } elseif (isset($response['error']['message'])) {
+            error_log("Gemini API Error Response: " . $response['error']['message']);
+            // Refine error messages for user
+            $errorMessage = htmlspecialchars($response['error']['message']);
+            if (strpos($errorMessage, 'API key not valid') !== false) {
+                return "Error: Invalid Gemini API Key. Please check your configuration.";
+            } elseif (strpos($errorMessage, 'rate limit') !== false) {
+                return "Error: AI review service is temporarily busy. Please try again in a moment.";
+            } elseif (strpos($errorMessage, 'unsafe') !== false) {
+                 return "Error: AI response blocked due to safety concerns. Please try a different movie or prompt.";
+            }
+            return "Error from AI: " . $errorMessage;
+        }
+
+        error_log("Gemini API: Unexpected response structure for '{$title}' ({$year}): " . print_r($response, true));
+        return "Error: Unexpected response from Gemini API. Could not generate review.";
     }
 }
