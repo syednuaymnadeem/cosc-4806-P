@@ -39,5 +39,13 @@ class MovieController extends Controller {
         } else {
           $avgRating = null;
       }
+
+      $this->view('movie/details', [
+          'movie' => $movie,
+          'avgRating' => $avgRating,
+          'ratingSubmitted' => $ratingSubmitted,
+          'aiReview' => $aiReview
+      ]);
+      
     }
 }
