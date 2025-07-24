@@ -3,3 +3,4 @@
 <?php else: ?>
 
 <?php endif; ?>
+<h2><?= htmlspecialchars($movie['Title']) ?> (<?= htmlspecialchars($movie['Year']) ?>)</h2>
