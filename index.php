@@ -13,4 +13,6 @@ if (!isset($_GET['action'])) {
     $controller->search();
 } elseif ($_GET['action'] === 'details') {
     $controller->details();
+} else {
+    echo "404 Not Found";
 }
