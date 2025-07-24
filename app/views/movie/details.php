@@ -14,3 +14,9 @@
 <p><strong>Actors:</strong> <?= htmlspecialchars($movie['Actors']) ?></p>
 <p><strong>Plot:</strong> <?= htmlspecialchars($movie['Plot']) ?></p>
 <p><strong>IMDB Rating:</strong> <?= htmlspecialchars($movie['imdbRating']) ?></p>
+
+<?php if ($avgRating): ?>
+    <p><strong>Average User Rating:</strong> <?= $avgRating ?>/5</p>
+<?php else: ?>
+    <p><strong>Average User Rating:</strong> Not rated yet</p>
+<?php endif; ?>
