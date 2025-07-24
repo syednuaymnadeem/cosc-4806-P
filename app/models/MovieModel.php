@@ -3,9 +3,7 @@
 
 class MovieModel {
     private $apiKey = "33879f52"; // OMDb API Key
-    
-    private $geminiApiKey = "AIzaSyB_gPJk7PWvZ-Il4idlkEJw_zwsAIOO6Io"; // My Gemini API Key
-    
+    private $geminiApiKey = "AIzaSyB_gPJk7PWvZ-Il4idlkEJw_zwsAIOO6Io"; // Your Gemini API Key
 
     public function fetchMovie($title, $year = '') {
         $title = urlencode($title);
@@ -34,7 +32,50 @@ class MovieModel {
         return (array)$data;
     }
 
+    /**
+     * Generates an AI-powered movie review using the Google Gemini API (gemini-2.0-flash model) via cURL.
+     * @param string $title The title of the movie.
+     * @param string $year The release year of the movie.
+     * @return string The AI-generated review text, or an error message.
+     */
     public function getAIReview($title, $year) {
-        // To be implemented
+        $prompt = "Write a short, engaging movie review for the film \"$title\" released in $year. Keep it under 100 words, without spoilers.";
+
+        // --- Changes Start Here ---
+
+        // 1. Updated API URL to use 'gemini-2.0-flash' model
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+
+        $payload = json_encode([
+            "contents" => [
+                [
+                    "parts" => [
+                        ["text" => $prompt]
+                    ]
+                ]
+            ]
+        ]);
+
+        // 2. Initialize cURL
+        $ch = curl_init($url);
+
+        // 3. Set cURL options
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return response as a string
+        curl_setopt($ch, CURLOPT_POST, true);           // Set request method to POST
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload); // Set the JSON payload
+
+        // Set HTTP headers: Content-Type and X-goog-api-key
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'X-goog-api-key: ' . $this->geminiApiKey // Use the X-goog-api-key header
+        ]);
+
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15); // Timeout in seconds
+
+        // 4. Execute cURL request
+        $result = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Get HTTP status code
+        $curl_error = curl_error($ch);                     // Get cURL error message
+        curl_close($ch); 
     }
 }
