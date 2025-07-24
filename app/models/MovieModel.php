@@ -77,5 +77,20 @@ class MovieModel {
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Get HTTP status code
         $curl_error = curl_error($ch);                     // Get cURL error message
         curl_close($ch); 
+
+        // 5. Handle cURL errors and HTTP response codes
+        if ($result === FALSE) {
+            error_log("Gemini API cURL Error for '{$title}' ({$year}): " . $curl_error);
+            return "Error: Failed to connect to Gemini AI (cURL error). Please try again later.";
+        }
+
+        // Check for non-200 HTTP responses
+        if ($http_code !== 200) {
+            // Attempt to decode even on error to get API's error message
+            $response = json_decode($result, true);
+            $errorMessage = isset($response['error']['message']) ? htmlspecialchars($response['error']['message']) : 'Unknown error';
+            error_log("Gemini API HTTP Error ({$http_code}) for '{$title}' ({$year}): " . $result);
+            return "Error from AI (HTTP {$http_code}): {$errorMessage}";
+        }
     }
 }
