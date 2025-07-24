@@ -8,3 +8,9 @@
 <?php if ($movie['Poster'] && $movie['Poster'] !== "N/A"): ?>
     <img src="<?= htmlspecialchars($movie['Poster']) ?>" alt="Poster" style="max-width:200px;">
 <?php endif; ?>
+
+<p><strong>Genre:</strong> <?= htmlspecialchars($movie['Genre']) ?></p>
+<p><strong>Director:</strong> <?= htmlspecialchars($movie['Director']) ?></p>
+<p><strong>Actors:</strong> <?= htmlspecialchars($movie['Actors']) ?></p>
+<p><strong>Plot:</strong> <?= htmlspecialchars($movie['Plot']) ?></p>
+<p><strong>IMDB Rating:</strong> <?= htmlspecialchars($movie['imdbRating']) ?></p>
