@@ -46,3 +46,10 @@
     <input type="hidden" name="review" value="1">
     <button type="submit">Generate AI Review</button>
 </form>
+
+<?php if ($aiReview): ?>
+    <h3>AI Review:</h3>
+    <p><?= nl2br(htmlspecialchars($aiReview)) ?></p>
+<?php endif; ?>
+
+<?php endif; ?>
