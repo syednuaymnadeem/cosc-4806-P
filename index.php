@@ -9,4 +9,6 @@ require_once '../app/models/MovieModel.php';
 
 // If no route given → show search
 $controller = new MovieController();
-if (!isset($_GET['action']))
+if (!isset($_GET['action'])) {
+    $controller->search();
+}
