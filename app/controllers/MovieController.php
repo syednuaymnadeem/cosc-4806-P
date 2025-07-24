@@ -23,6 +23,14 @@ class MovieController extends Controller {
 
         if (isset($movie['imdbID'])) {
             $ratingModel = $this->model('RatingModel');
+
+          if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rating'])) {
+              $userRating = intval($_POST['rating']);
+              if ($userRating >= 1 && $userRating <= 5) {
+                  $ratingModel->addRating($movie['imdbID'], $userRating);
+                  $ratingSubmitted = true;
+              }
+          }
         }
     }
 }
