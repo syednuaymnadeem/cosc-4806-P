@@ -31,6 +31,7 @@ class MovieController extends Controller {
                   $ratingSubmitted = true;
               }
           }
+          $avgRating = $ratingModel->getAverageRating($movie['imdbID']);
         }
     }
 }
