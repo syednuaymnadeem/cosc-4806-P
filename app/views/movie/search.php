@@ -4,4 +4,8 @@
 
 <form method="GET" action="">
   <input type="hidden" name="action" value="details">
+  <label>
+      Movie Title:
+      <input type="text" name="title" required>
+  </label><br><br>
 </form>
