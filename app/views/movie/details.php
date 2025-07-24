@@ -20,3 +20,7 @@
 <?php else: ?>
     <p><strong>Average User Rating:</strong> Not rated yet</p>
 <?php endif; ?>
+
+<?php if ($ratingSubmitted): ?>
+    <p style="color: green;"><strong>Thank you for rating!</strong></p>
+<?php endif; ?>
