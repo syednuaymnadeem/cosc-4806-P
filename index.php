@@ -11,4 +11,6 @@ require_once '../app/models/MovieModel.php';
 $controller = new MovieController();
 if (!isset($_GET['action'])) {
     $controller->search();
+} elseif ($_GET['action'] === 'details') {
+    $controller->details();
 }
